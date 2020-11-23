@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import './App.css';
-// import Header from './components/Header';
-// import Table from './components/Table';
+import Header from './components/Header';
+import Table from './components/Table';
 
 function App() {
   
@@ -16,13 +16,17 @@ function App() {
       {id: "8", firstName: "Валентина", lastName:"Иванова", position:'Художник'}
     ];
   
-  let tempValue = { id: "9", firstName: "Ив", lastName: "Ивано", position: 'Менеджер' };
-
-  const editStyle = {
+  // let tempValue = { id: "9", firstName: "Ив", lastName: "Ивано", position: 'Менеджер' };
+/*
+  const btnStyle = {
     marginLeft: '10px',
   };
 
   const [newList,updateData] = useState(data);
+
+  function addElement(element){
+    updateData([...newList, element])
+  }
 
   function deleteElement(e){
     e.preventDefault();
@@ -48,12 +52,13 @@ function App() {
     })
   }
 
-  // function changeEdit(props){
-  //   return (<button type = "button" className="btn btn-outline-success">Save</button>)
-  // }
+  function changeEdit(props){
+    return (<button type = "button" className="btn btn-outline-success">Save</button>)
+  }
 
   function ListTable(props) {
       var listItems = [];
+      // console.log(newList)
       newList.forEach(element => {
           listItems.push(
               <tr key={element.id}>
@@ -72,8 +77,7 @@ function App() {
                     <button
                     type="button"
                     className="btn btn-outline-success"                    
-                    style={editStyle}
-                    onClick >                   
+                    style={btnStyle}>                                        
                     Edit
                     </button>
                   </td>
@@ -82,15 +86,10 @@ function App() {
       });
     return (listItems)
   }
-  
+*/  
   return (
       <div className='table' >
-      <button
-      type="button"
-      className="btn btn-outline-success"
-      onClick={addElement}>    
-      Add User
-      </button>
+      <Header data = {data}/>      
       <thead className="thead-dark">
           <tr>
               <th>ID</th>
@@ -101,7 +100,7 @@ function App() {
           </tr>
       </thead>
       <tbody>
-          <ListTable/>
+          <Table/>
       </tbody>
   </div>    
   )

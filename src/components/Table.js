@@ -1,6 +1,6 @@
-import React from 'react'
+import React,{useState} from 'react'
 
-const data = [
+let data = [
     {id: "1", firstName: "Иван", lastName:"Иванов", position:'Менеджер'},
     {id: "2", firstName: "Пётр", lastName:"Петров", position:'Сисадмин'},
     {id: "3", firstName: "Сара", lastName:"Конор", position:'Бухгалтер'},
@@ -9,82 +9,62 @@ const data = [
     {id: "6", firstName: "Марина", lastName:"Маринина", position:'Менеджер'},
     {id: "7", firstName: "Михаил", lastName:"Михайлов", position:'Директор'},
     {id: "8", firstName: "Валентина", lastName:"Иванова", position:'Художник'}
+  ];
 
-];
-function ListTable(props) {
-    var listItems = [];
-    data.forEach(element => {
-        listItems.push(
-            <tr key={element.id}>
-                <td>{element.id}</td>
-                <td>{element.firstName}</td>
-                <td>{element.lastName}</td>
-                <td>{element.position}</td>
-            </tr>
-        );
-    });
-  return (listItems)
-}
-return (
-    <div className='table'>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Position</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <ListTable/>
-    </tbody>
-</div>
-    
-)
-// export default props =>(
-//     <table className='table'>
-//     <thead>
-//         <tr>
-//             <th>ID</th>
-//             <th>First Name</th>
-//             <th>Last Name</th>
-//             <th>Position</th>
-//             <th>Action</th>
-//         </tr>
-//     </thead>
-//     <tbody>
-//         {props.data.map(item =>(
-//             <tr key={item.id}>
-//                 <td>{item.id}</td>
-//                 <td>{item.firstName}</td>
-//                 <td>{item.lastName}</td>
-//                 <td>{item.position}</td>
-//             </tr>
-//         ))}
-//     </tbody>
-// </table>
-// );
-// const Table = (props) => (
-//     <table className='table'>
-//         <thead>
-//             <tr>
-//                 <th>ID</th>
-//                 <th>First Name</th>
-//                 <th>Last Name</th>
-//                 <th>Position</th>
-//                 <th>Action</th>
-//             </tr>
-//         </thead>
-//         <tbody>
-//             <tr>
-//                 <td>{data.id}</td>
-//                 <td>{data.firstName}</td>
-//                 <td>{data.lastName}</td>
-//                 <td>{data.position}</td>
-//             </tr>
-//         </tbody>
-//     </table>
-// )
 
+
+
+ 
+  
+
+  function Table(props) {
+
+      const [newList,updateData] = useState(data);
+
+      function addElement(element){
+        updateData([...newList, element])
+      }
+      
+      function deleteElement(e){
+        e.preventDefault();
+        updateData((tempState)=>{
+          let listItems = [];
+          tempState.forEach(element => {
+            if(element.id !==e.target.attributes[2].value){
+              listItems.push(element)
+            }
+          })
+          return listItems
+        })
+      }
+
+      var listItems = [];
+      // console.log(newList)
+      newList.forEach(element => {
+          listItems.push(
+              <tr key={element.id}>
+                  <td><input type="text" readOnly value={element.id} /></td>
+                  <td><input type="text" readOnly value={element.firstName} /></td>
+                  <td><input type="text" readOnly value={element.lastName} /></td>
+                  <td><input type="text" readOnly value={element.position} /></td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn btn-outline-danger"
+                      number={element.id}
+                      onClick={deleteElement}>
+                      Delete
+                    </button>
+                    <button
+                    type="button"
+                    className="btn btn-outline-success"                    
+                    >                                        
+                    Edit
+                    </button>
+                  </td>
+              </tr>
+          );
+      });
+    return (listItems)
+  }
 export default Table;
